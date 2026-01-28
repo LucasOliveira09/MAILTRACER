@@ -1,6 +1,5 @@
 import os
 from google import genai
-from google.genai import types
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -55,12 +54,3 @@ def classificar_email(texto_do_email):
         print(f"Erro ao chamar o Gemini: {e}")
         return "Erro Técnico", "Não foi possível gerar uma resposta no momento."
 
-if __name__ == "__main__":
-    print("--- Testando Cérebro (Nova SDK) ---")
-    email_teste = "Gostaria de saber o preço da consultoria."
-    
-    cat, resp = classificar_email(email_teste)
-    
-    print(f"Email: {email_teste}")
-    print(f"Categoria: {cat}")
-    print(f"Resposta: {resp}")

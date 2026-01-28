@@ -5,6 +5,8 @@ const fileInput = document.getElementById('inputFile');
 const textArea = document.getElementById('inputTexto');
 const statusArquivo = document.getElementById('statusArquivo');
 
+const URL_BACKEND = "https://mailtracer-api.onrender.com/analisar";
+
 // --- LÓGICA DE TEMA (Mantida igual) ---
 const themeToggle = document.getElementById('themeToggle');
 const themeIcon = document.getElementById('themeIcon');
@@ -166,7 +168,7 @@ document.getElementById('formAnalise').addEventListener('submit', async function
     loading.classList.remove('hidden');
 
     try {
-        const response = await fetch('/analisar', {
+        const response = await fetch(URL_BACKEND, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ texto: limpo })

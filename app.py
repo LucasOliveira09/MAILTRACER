@@ -30,5 +30,7 @@ def analisar():
         print(f"Erro no servidor: {e}")
         return jsonify({'erro': f'Erro interno: {str(e)}'}), 500
 
+
+
 if __name__ == '__main__':
     app.run(debug=True)

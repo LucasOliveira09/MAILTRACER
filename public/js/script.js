@@ -5,7 +5,7 @@ const fileInput = document.getElementById('inputFile');
 const textArea = document.getElementById('inputTexto');
 const statusArquivo = document.getElementById('statusArquivo');
 
-const URL_BACKEND = "https://mailtracer-api.onrender.com/analisar";
+const URL_BACKEND = "https://mailtracer.onrender.com/analisar";
 
 // --- LÓGICA DE TEMA (Mantida igual) ---
 const themeToggle = document.getElementById('themeToggle');

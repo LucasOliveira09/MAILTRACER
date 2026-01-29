@@ -143,13 +143,17 @@ fileInput.addEventListener('change', async function() {
             
         } catch (erro) {
             console.error(erro);
-            textArea.value = "Erro ao ler arquivo. Tente uma imagem mais nítida.";
+            mensagemErro("Erro ao ler arquivo. Tente uma imagem mais nítida.");
             statusArquivo.innerHTML = `<span class="text-red-500">Erro na leitura</span>`;
         } finally {
             textArea.disabled = false;
         }
     }
 });
+
+function limparInputs(){
+  textArea.value = "";
+}
 
 // --- ENVIO (Mantido igual) ---
 document.getElementById('formAnalise').addEventListener('submit', async function(e) {
@@ -174,7 +178,10 @@ document.getElementById('formAnalise').addEventListener('submit', async function
             body: JSON.stringify({ texto: limpo })
         });
         const data = await response.json();
-        if (response.ok) abrirModal(data.categoria, data.resposta);
+        if (response.ok){
+            abrirModal(data.categoria, data.resposta);
+            limparInputs();
+        } 
         else alert("Erro: " + data.erro);
     } catch (error) { alert("Erro de conexão."); }
     finally { btn.disabled = false; loading.classList.add('hidden'); }

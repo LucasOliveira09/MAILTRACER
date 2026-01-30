@@ -24,10 +24,11 @@ def analisar(dados: EmailRequest):
         raise HTTPException(status_code=400, detail="O texto está vazio.")
 
     try:
-        categoria, resposta = classificar_email(dados.texto)
+        categoria, resumo, resposta = classificar_email(dados.texto)
 
         return {
             "categoria": categoria,
+            "resumo": resumo,
             "resposta": resposta
         }
 

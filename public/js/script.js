@@ -3,11 +3,12 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs
 
 const fileInput = document.getElementById('inputFile');
 const textArea = document.getElementById('inputTexto');
+const resumeArea = document.getElementById('textoResumo');
 const statusArquivo = document.getElementById('statusArquivo');
 
 const URL_BACKEND = "https://mailtracer.onrender.com/analisar";
 
-// --- LÓGICA DE TEMA (Mantida igual) ---
+// --- LÓGICA DE TEMA ---
 const themeToggle = document.getElementById('themeToggle');
 const themeIcon = document.getElementById('themeIcon');
 const html = document.documentElement;
@@ -28,16 +29,19 @@ themeToggle.addEventListener('click', () => {
     }
 });
 
-// --- LÓGICA DO MODAL
+
+// Design do modal
+
 const modalOverlay = document.getElementById('modalOverlay');
 const modalContent = document.getElementById('modalContent');
 
-function abrirModal(categoria, resposta) {
+function abrirModal(categoria, resposta, resumo) {
     const badge = document.getElementById('badgeCategoria');
     const txtResposta = document.getElementById('textoResposta');
 
     badge.innerText = categoria;
     txtResposta.innerText = resposta;
+    resumeArea.innerText = resumo;
 
     if (categoria.toLowerCase().includes('produtivo')) {
         badge.className = "px-6 py-2 rounded-full text-lg font-bold shadow-sm inline-block bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400 border border-red-200 dark:border-red-800";
@@ -64,14 +68,13 @@ modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) f
 window.fecharModal = fecharModal;
 
 
-// --- NOVA LÓGICA DE OCR (Super Leitura) ---
+// ocr para descrever imagens no pdf
+
 async function realizarOCR(pdfDoc) {
     let textoOCR = "";
-    // Limite de segurança: OCR é lento, ler só a 1ª página
     const pagina = await pdfDoc.getPage(1);
     
-    // 1. Renderiza a página do PDF em um Canvas invisível
-    const viewport = pagina.getViewport({ scale: 2.0 }); // Scale 2.0 melhora a qualidade pra ler
+    const viewport = pagina.getViewport({ scale: 2.0 }); 
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
     canvas.height = viewport.height;
@@ -79,21 +82,19 @@ async function realizarOCR(pdfDoc) {
 
     await pagina.render({ canvasContext: context, viewport: viewport }).promise;
 
-    // 2. Transforma o Canvas em Imagem
     const imagemData = canvas.toDataURL('image/png');
 
-    // 3. Usa o Tesseract para ler a imagem
     statusArquivo.innerHTML = `<span class="text-indigo-600 dark:text-indigo-400 font-bold animate-pulse"><i class="fas fa-eye"></i> Aplicando OCR na imagem...</span>`;
     
-    const worker = await Tesseract.createWorker('por'); // 'por' = Português
+    const worker = await Tesseract.createWorker('por'); 
     const { data: { text } } = await worker.recognize(imagemData);
     await worker.terminate();
 
     return text;
 }
 
+// adição de arquivos
 
-// --- LÓGICA DE ARQUIVOS ---
 fileInput.addEventListener('change', async function() {
     if (this.files && this.files.length > 0) {
         const arquivo = this.files[0];
@@ -113,20 +114,17 @@ fileInput.addEventListener('change', async function() {
                 const buffer = await arquivo.arrayBuffer();
                 const pdf = await pdfjsLib.getDocument(buffer).promise;
                 
-                // Tenta extração normal primeiro
                 const pagina = await pdf.getPage(1);
                 const conteudo = await pagina.getTextContent();
                 const strings = conteudo.items.map(item => item.str);
                 let textoNormal = strings.join(' ').trim();
 
-                // SE O TEXTO FOR MUITO CURTO (< 20 caracteres), PROVAVELMENTE É IMAGEM
-                if (textoNormal.length < 20) {
+                if (textoNormal.length < 10) {
                     console.log("Texto vazio detectado. Iniciando OCR...");
                     textoExtraido = await realizarOCR(pdf);
-                    textoExtraido = "[OCR] " + textoExtraido; // Marca visual para saber que foi OCR
+                    textoExtraido = "[OCR] " + textoExtraido; 
                 } else {
                     textoExtraido = textoNormal;
-                    // Se tiver mais páginas, continua lendo normal
                     const maxPaginas = Math.min(pdf.numPages, 3);
                     for (let i = 2; i <= maxPaginas; i++) {
                         const p = await pdf.getPage(i);
@@ -151,11 +149,12 @@ fileInput.addEventListener('change', async function() {
     }
 });
 
+// input para limpar textInput
+
 function limparInputs(){
   textArea.value = "";
 }
 
-// --- ENVIO (Mantido igual) ---
 document.getElementById('formAnalise').addEventListener('submit', async function(e) {
     e.preventDefault();
     let texto = textArea.value;
@@ -179,7 +178,7 @@ document.getElementById('formAnalise').addEventListener('submit', async function
         });
         const data = await response.json();
         if (response.ok){
-            abrirModal(data.categoria, data.resposta);
+            abrirModal(data.categoria, data.resposta, data.resumo);
             limparInputs();
         } 
         else alert("Erro: " + data.erro);

@@ -18,15 +18,16 @@ def classificar_email(texto_do_email):
     Sua tarefa:
     1. Analisar o email abaixo.
     2. Classificar como "Produtivo" (requer ação, dúvidas, suporte, ou avisos) ou "Improdutivo" (spam, agradecimentos, mensagens sociais).
-    3. Escrever uma sugestão de resposta profissional, sempre decorrendo da dependencia e assunto do email. Dependendo do email sugira nem responder, apenas ignorar.
+    3. Resumir o conteudo do email em poucas linhas, para que o usuario entenda do que se trata o email.
+    4. Escrever uma sugestão de resposta profissional, sempre decorrendo da dependencia e assunto do email. Dependendo do email sugira nem responder, apenas ignorar.
     
     REGRA DE FORMATAÇÃO (Importante):
     Sua resposta deve seguir ESTRITAMENTE este formato (use duas barras verticais para separar):
-    CATEGORIA || RESPOSTA SUGERIDA
+    CATEGORIA || RESUMO DO EMAIL || RESPOSTA SUGERIDA
     
     Exemplos:
-    Produtivo || Prezado, recebemos sua solicitação e estamos analisando.
-    Improdutivo || Agradecemos o contato. Tenha um ótimo dia.
+    Produtivo || O email está te enviando uma solicitação de oferta de marketing || Prezado, recebemos sua solicitação e estamos analisando.
+    Improdutivo || O cliente está elogiando o produto || Agradecemos o contato. Tenha um ótimo dia.
     """
 
     try:
@@ -42,11 +43,12 @@ def classificar_email(texto_do_email):
         if "||" in conteudo:
             partes = conteudo.split("||")
             categoria = partes[0].strip()
-            resposta = partes[1].strip()
+            resumo = partes[1].strip()
+            resposta = partes[2].strip()
             
             categoria = categoria.replace("**", "").replace('"', '')
             
-            return categoria, resposta
+            return categoria, resumo, resposta
         else:
             return "Indefinido", conteudo
 

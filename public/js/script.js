@@ -28,7 +28,7 @@ themeToggle.addEventListener('click', () => {
     }
 });
 
-// --- LÓGICA DO MODAL (Mantida igual) ---
+// --- LÓGICA DO MODAL
 const modalOverlay = document.getElementById('modalOverlay');
 const modalContent = document.getElementById('modalContent');
 

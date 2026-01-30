@@ -42,10 +42,16 @@ def classificar_email(texto_do_email):
         
         if "||" in conteudo:
             partes = conteudo.split("||")
-            categoria = partes[0].strip()
-            resumo = partes[1].strip()
-            resposta = partes[2].strip()
             
+            if len(partes) >= 3:
+                categoria = partes[0].strip()
+                resumo = partes[1].strip()
+                resposta = partes[2].strip()
+            else:
+                categoria = partes[0].strip()
+                resumo = "Resumo não gerado corretamente."
+                resposta = partes[1].strip() if len(partes) > 1 else "Sem resposta."
+        
             categoria = categoria.replace("**", "").replace('"', '')
             
             return categoria, resumo, resposta

@@ -3,7 +3,6 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs
 
 const fileInput = document.getElementById('inputFile');
 const textArea = document.getElementById('inputTexto');
-const resumeArea = document.getElementById('textoResumo');
 const statusArquivo = document.getElementById('statusArquivo');
 
 const URL_BACKEND = "https://mailtracer.onrender.com/analisar";
@@ -35,9 +34,10 @@ themeToggle.addEventListener('click', () => {
 const modalOverlay = document.getElementById('modalOverlay');
 const modalContent = document.getElementById('modalContent');
 
-function abrirModal(categoria, resposta, resumo) {
+function abrirModal(categoria, resumo, resposta) {
     const badge = document.getElementById('badgeCategoria');
     const txtResposta = document.getElementById('textoResposta');
+    const resumeArea = document.getElementById('textoResumo');
 
     badge.innerText = categoria;
     txtResposta.innerText = resposta;

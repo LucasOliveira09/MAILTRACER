@@ -1,10 +1,5 @@
 # 📬 MailTracer - Aplicação feita para classificar emails com uso de IA!
 
-![MailTracer Banner](https://img.shields.io/badge/Status-Em%20Produ%C3%A7%C3%A3o-success?style=for-the-badge)
-![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)
-![Google Gemini](https://img.shields.io/badge/Google%20Gemini-8E75C2?style=for-the-badge&logo=googlegemini&logoColor=white)
-![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
-
 > **MailTracer** foi feito para classificar emails e traçar sua categoria conforme importancia, resumi-los e gerar uma resposta condizente ao email.
 
 ## ✅ Projeto em produção:
@@ -53,13 +48,21 @@ Já no front-end, optei por fazer de forma separada, usando ``html`` e ``Tailwin
    ```bash
    git clone [https://github.com/LucasOliveira09/mailtracer.git](https://github.com/LucasOliveira09/mailtracer.git)
 
-2. **Ative a pasta Venv:**
+2. **Mude a linha 12 do arquivo app.py, para:**
 
     ```bash
-    .venv/Scripts/active
+
+    allow_origins=["*"], 
+
     ```
 
-3. **Abra o terminal (Ctrl + ' no VS Code):**
+3. **Ative a pasta Venv:**
+
+    ```bash
+    .\venv\Scripts\activate
+    ```
+
+4. **Abra o terminal (Ctrl + ' no VS Code):**
     ```bash
     # Instale as dependencias usando o seguinte comando
     pip install -r requirements.txt
@@ -67,13 +70,30 @@ Já no front-end, optei por fazer de forma separada, usando ``html`` e ``Tailwin
     ```
 
 
-4. **Inicie a aplicação**
+5. **Inicie a aplicação**
 
     ``` bash
     python app.py
     ```
 
-O backend estará rodando assim, mas ainda seria necessaria a configuração do CORS e da rota para segurança do projeto liberar os testes!
+### Front-End:
+
+**O backend estará rodando assim, mas ainda será necessario a configuração do FrontEnd!**
+
+1. **Altere a rota do Url em:**
+``./public/js/script.js``
+
+```bash
+
+# Altere a linha 8 para esse url, ou o url que estiver rodando seu BackEnd!
+const URL_BACKEND = "http://127.0.0.1:8000/analisar";
+
+```
+
+2. **Então inicie o front end:**
+```
+ Usando a extenção CodeRunner do VsCode, inicie o arquivo: ``../public/index.html``
+ ```
 
 
 ## 🛠️ Rotas

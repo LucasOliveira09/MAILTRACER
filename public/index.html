@@ -12,6 +12,8 @@
             darkMode: 'class',
         }
     </script>
+
+    <link rel="shortcut icon" href="assets/icon.png" type="image/x-icon">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -105,43 +107,47 @@
         </div>
     </footer>
 
-    <div id="modalOverlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div id="modalContent" class="bg-white dark:bg-gray-800 w-full max-w-2xl rounded-2xl shadow-2xl transform scale-95 opacity-0 transition-all duration-300 relative overflow-hidden">
-            
-            <div class="bg-gray-50 dark:bg-gray-700 px-6 py-4 border-b border-gray-200 dark:border-gray-600 flex justify-between items-center">
-                <h3 class="text-lg font-bold text-gray-800 dark:text-white flex items-center gap-2">
-                    <i class="fas fa-check-circle text-green-500"></i> Análise Concluída
-                </h3>
-                <button onclick="fecharModal()" class="text-gray-400 hover:text-red-500 transition-colors">
-                    <i class="fas fa-times text-xl"></i>
-                </button>
+    <div id="modalOverlay" class="fixed inset-0 bg-gray-900/60 backdrop-blur-md z-50 hidden flex items-center justify-center p-4 transition-all duration-300">
+    <div id="modalContent" class="bg-white dark:bg-gray-800 w-full max-w-xl rounded-3xl shadow-2xl transform scale-95 opacity-0 transition-all duration-300 overflow-hidden border border-white/20">
+        
+        <div class="px-8 pt-8 pb-4 flex justify-between items-start">
+            <div>
+                <h3 class="text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight">Análise Finalizada</h3>
+                <p class="text-gray-500 dark:text-gray-400 text-sm">IA MailTracer processou seu conteúdo</p>
             </div>
+            <button onclick="fecharModal()" class="p-2 rounded-xl bg-gray-100 dark:bg-gray-700 text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all">
+                <i class="fas fa-times text-lg"></i>
+            </button>
+        </div>
 
-            <div class="p-8">
-                <div class="mb-6 text-center">
-                    <span class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Categoria Identificada</span>
-                    <div class="mt-2">
-                        <span id="badgeCategoria" class="px-6 py-2 rounded-full text-lg font-bold shadow-sm inline-block">
-                            </span>
-                    </div>
-                </div>
-
-                <div class="bg-indigo-50 dark:bg-gray-900 rounded-xl p-6 border border-indigo-100 dark:border-gray-600 relative">
-                    <div class="absolute -top-3 left-4 bg-indigo-600 text-white text-xs px-2 py-1 rounded shadow">
-                        Sugestão de Resposta
-                    </div>
-                    <p id="textoResposta" class="text-gray-700 dark:text-gray-300 italic leading-relaxed pt-2">
-                        </p>
+        <div class="p-8 pt-4">
+            <div id="statusContainer" class="mb-8 p-4 rounded-2xl flex items-center gap-4 transition-colors">
+                <div id="statusIcon" class="w-12 h-12 rounded-xl flex items-center justify-center text-xl shadow-inner"></div>
+                <div>
+                    <span class="text-xs uppercase font-bold tracking-widest opacity-70">Veredito</span>
+                    <p id="badgeCategoria" class="text-lg font-bold block"></p>
                 </div>
             </div>
 
-            <div class="bg-gray-50 dark:bg-gray-700 px-6 py-4 flex justify-end">
-                <button onclick="fecharModal()" class="px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors font-semibold">
-                    Fechar
+            <div class="relative group">
+                <label class="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-2 block ml-1">Sugestão de Resposta Profissional</label>
+                <div class="bg-gray-50 dark:bg-gray-900/50 border-2 border-gray-100 dark:border-gray-700 rounded-2xl p-6 transition-all group-hover:border-indigo-300 dark:group-hover:border-indigo-500/50">
+                    <p id="textoResposta" class="text-gray-700 dark:text-gray-200 leading-relaxed text-sm md:text-base"></p>
+                </div>
+                
+                <button id="btnCopiar" class="absolute bottom-3 right-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 px-4 py-2 rounded-xl text-xs font-bold text-indigo-600 dark:text-indigo-400 shadow-sm hover:shadow-md hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition-all flex items-center gap-2 active:scale-95">
+                    <i class="far fa-copy"></i> <span>Copiar Resposta</span>
                 </button>
             </div>
         </div>
+
+        <div class="px-8 py-6 bg-gray-50/50 dark:bg-gray-900/30 flex justify-center">
+            <button onclick="fecharModal()" class="w-full py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-xl font-bold hover:opacity-90 transition-opacity">
+                Entendido
+            </button>
+        </div>
     </div>
+</div>
 
     <script src="js/script.js"></script>
 </body>

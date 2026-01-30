@@ -187,3 +187,19 @@ document.getElementById('formAnalise').addEventListener('submit', async function
     finally { btn.disabled = false; loading.classList.add('hidden'); }
 });
 window.fecharModal = fecharModal;
+
+document.getElementById('btnCopiar').addEventListener('click', function() {
+    const texto = document.getElementById('textoResposta').innerText;
+    const btn = this;
+    const originalContent = btn.innerHTML;
+
+    navigator.clipboard.writeText(texto).then(() => {
+        btn.innerHTML = '<i class="fas fa-check"></i> <span>Copiado!</span>';
+        btn.classList.add('bg-green-50', 'text-green-600', 'border-green-200');
+        
+        setTimeout(() => {
+            btn.innerHTML = originalContent;
+            btn.classList.remove('bg-green-50', 'text-green-600', 'border-green-200');
+        }, 2000);
+    });
+});

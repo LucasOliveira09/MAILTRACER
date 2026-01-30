@@ -160,7 +160,6 @@ document.getElementById('formAnalise').addEventListener('submit', async function
     let texto = textArea.value;
     if (!texto.trim()) { alert("Insira texto!"); return; }
     
-    // Otimização
     let limpo = texto.replace(/\s+/g, ' ').trim();
     if (limpo.length > 3000) limpo = limpo.substring(0, 3000) + "...";
 
@@ -178,7 +177,7 @@ document.getElementById('formAnalise').addEventListener('submit', async function
         });
         const data = await response.json();
         if (response.ok){
-            abrirModal(data.categoria, data.resposta, data.resumo);
+            abrirModal(data.categoria, data.resumo, data.resposta);
             limparInputs();
         } 
         else alert("Erro: " + data.erro);

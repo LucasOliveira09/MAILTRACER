@@ -6,7 +6,7 @@
 
 **O video demonstrando o funcionamento do projeto:**
 
-[YouTube]([youtube.com](https://youtu.be/9m0wn8hMirg?si=qxeMocnwRXadwNaF))
+[YouTube](https://youtu.be/9m0wn8hMirg?si=qxeMocnwRXadwNaF)
 
 **E abaixo segue o link do Projeto já em produção:**
 
